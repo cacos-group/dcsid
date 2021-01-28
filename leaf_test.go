@@ -3,12 +3,13 @@ package leaf
 import (
 	"fmt"
 	"testing"
+	"time"
 )
 
 func TestGenid_NextId(t *testing.T) {
 
 	leaf := New(&Config{
-		DSN:    "user:password@tcp(127.0.0.1:3306)/leaf",
+		DSN:    "souti_growth:yC3f4NTLLTS8OUHV@tcp(rm-2ze335994i6a5ii8mfm.mysql.rds.aliyuncs.com:3306)/leaf",
 		BizTag: "test",
 	})
 
@@ -20,6 +21,7 @@ func TestGenid_NextId(t *testing.T) {
 				return
 			}
 			fmt.Println(id)
+			time.Sleep(time.Millisecond)
 		}
 	}()
 
@@ -30,6 +32,7 @@ func TestGenid_NextId(t *testing.T) {
 			return
 		}
 		fmt.Println(id)
+		time.Sleep(time.Millisecond)
 	}
 
 }

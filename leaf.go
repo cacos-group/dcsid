@@ -122,12 +122,30 @@ func (l *Leaf) initIdPool0() error {
 	return nil
 }
 
+func (p *idPool) left() uint64 {
+	if p.NextID > p.MaxID {
+		return 0
+	}
+	return p.MaxID - p.NextID + 1
+}
+
+func (p *idPool) total() uint64 {
+	return uint64(p.Step)
+}
+
 func (l *Leaf) initIdPool1() error {
 	l.idPool1Mutex.Lock()
 	defer l.idPool1Mutex.Unlock()
 
 	if l.idPool1 != nil && l.idPool1.MaxID > 0 {
 		return nil
+	}
+
+	if l.idPool0 != nil {
+		rate := float64(l.idPool0.left()) / float64(l.idPool0.total())
+		if rate > 0.6 {
+			return nil
+		}
 	}
 
 	startID, endID, step, err := l.mysql.GetEndID(context.TODO())
