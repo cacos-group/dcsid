@@ -40,15 +40,20 @@ func New(config *Config) *Leaf {
 		BizTag: config.BizTag,
 	})
 
+	err := ms.InitBizTag(context.TODO(), config.BizTag, 1, 2000, "")
+	if err != nil {
+		log.Panicf("InitBizTag err: %v\n", err)
+	}
+
 	leaf := &Leaf{
 		config: config,
 		ch:     ch,
 		mysql:  ms,
 	}
 
-	err := leaf.initIdPool0()
+	err = leaf.initIdPool0()
 	if err != nil {
-		panic(err)
+		log.Panicf("initIdPool0 err: %v\n", err)
 	}
 
 	leaf.initDaemon()

@@ -8,9 +8,6 @@ import (
 	"time"
 )
 
-const _updateSql = "UPDATE leaf_alloc SET max_id=max_id+step WHERE biz_tag=?"
-const _selectSql = "SELECT max_id, step FROM leaf_alloc where biz_tag = ?"
-
 var RowsNotAffectedErr = fmt.Errorf("rows not affected")
 
 // Config sql config.
@@ -40,6 +37,17 @@ func NewMySQL(c *Config) *MySQL {
 		db:   db,
 		conf: c,
 	}
+}
+
+func (m *MySQL) InitBizTag(ctx context.Context, bizTag string, maxID uint64, step int, description string) error {
+	db := m.db
+
+	_, err := db.Exec(_insertSql, bizTag, maxID, step, description)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (m *MySQL) GetEndID(ctx context.Context) (startID uint64, endID uint64, step int, err error) {

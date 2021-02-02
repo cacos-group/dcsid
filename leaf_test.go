@@ -9,8 +9,8 @@ import (
 func TestGenid_NextId(t *testing.T) {
 
 	leaf := New(&Config{
-		DSN:    "souti_growth:yC3f4NTLLTS8OUHV@tcp(rm-2ze335994i6a5ii8mfm.mysql.rds.aliyuncs.com:3306)/leaf",
-		BizTag: "test",
+		DSN:    "",
+		BizTag: "test1",
 	})
 
 	go func() {
