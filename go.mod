@@ -1,4 +1,4 @@
-module github.com/go-light/leaf
+module github.com/cacos-group/dcsid
 
 go 1.15
 

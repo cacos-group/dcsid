@@ -30,8 +30,8 @@ func NewMySQL(c *Config) *MySQL {
 	}
 
 	db.SetConnMaxLifetime(time.Hour) //最大连接周期，超过时间的连接就close
-	db.SetMaxOpenConns(10)           //设置最大连接数
-	db.SetMaxIdleConns(2)            //设置闲置连接数
+	db.SetMaxOpenConns(2)            //设置最大连接数
+	db.SetMaxIdleConns(1)            //设置闲置连接数
 
 	return &MySQL{
 		db:   db,
